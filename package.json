@@ -1,0 +1,19 @@
+{
+  "name": "create-flyweight",
+  "version": "1.0.19",
+  "description": "Set up flyweight in a project",
+  "main": "index.js",
+  "bin": {
+    "cli": "index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrew Jones",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.12.4",
+    "flyweightjs": "^2.0.11"
+  }
+}
