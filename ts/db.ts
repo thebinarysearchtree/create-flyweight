@@ -8,9 +8,11 @@ const path = (subPath: string) => {
 
 const database = new Database();
 
+const sqlPath = path('sql');
+
 const result = await database.initialize<TypedDb>({
   db: path('app.db'),
-  sql: path('sql'),
+  sql: sqlPath,
   tables: path('sql/tables.sql'),
   views: path('views'),
   types: path('types.ts'),
@@ -32,5 +34,6 @@ export {
   makeTypes,
   getTables,
   createMigration,
-  runMigration
+  runMigration,
+  sqlPath
 }

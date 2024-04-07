@@ -1,23 +1,18 @@
 #!/usr/bin/env node
 import { execSync } from 'child_process';
-import { access, cp, readFile, writeFile, mkdir } from 'fs/promises';
+import { cp, readFile, writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
 
 const exec = (command) => execSync(command, { stdio: 'inherit' });
 
-const exists = async (path) => {
-  try {
-    await access(path, constants.R_OK | constants.W_OK);
-    return true;
-  }
-  catch {
-    return false;
-  }
+if (process.argv.length < 3) {
+  console.log('Please supply a directory.');
+  process.exit();
 }
 
 exec('npm install flyweightjs');
-const ts = await exists('tsconfig.json');
 const root = process.argv[2];
+const ts = process.argv.length > 3;
 
 const copy = async (from, to, options) => {
   if (!to) {
@@ -40,16 +35,19 @@ await mkdir(join(root, 'views'));
 await copy('app.db');
 
 const typesFile = ts ? 'types.ts' : 'db.d.ts';
-
 await copy('db.d.ts', typesFile);
-await copy(`db.js`);
-await copy('migrate.js');
-await copy('makeTypes.js');
 
-if (ts) {
-  await copy('db.ts');
-  await copy('migrate.js', 'migrate.ts');
-  await copy('makeTypes.js', 'makeTypes.ts');
+if (!ts) {
+  await copy(`db.js`);
+  await copy('migrate.js');
+  await copy('makeTypes.js');
+  await copy('watch.js');
+}
+else {
+  await copy('./ts/db.ts', 'db.ts');
+  await copy('./ts/migrate.ts', 'migrate.ts');
+  await copy('./ts/makeTypes.ts', 'makeTypes.ts');
+  await copy('./ts/watch.ts', 'watch.ts');
 }
 
 const file = await readFile('package.json', 'utf8');
@@ -57,4 +55,5 @@ const config = JSON.parse(file);
 config.type = 'module';
 config.scripts.types = `node ${join(root, 'makeTypes.js')}`;
 config.scripts.migrate = `node ${join(root, 'migrate.js')}`;
+config.scripts.watch = `node ${join(root, 'watch.js')}`;
 await writeFile('package.json', JSON.stringify(config, null, 2));

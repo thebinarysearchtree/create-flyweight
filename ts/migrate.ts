@@ -1,4 +1,4 @@
-import { database, createMigration, runMigration, makeTypes } from './db.js';
+import { database, createMigration, runMigration, makeTypes } from './db';
 import readline from 'readline/promises';
 import { stdin as input, stdout as output } from 'process';
 
@@ -9,7 +9,7 @@ if (!name) {
   process.exit();
 }
 
-let migration;
+let migration: any;
 try {
   migration = await createMigration(name);
 }
