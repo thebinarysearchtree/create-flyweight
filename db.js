@@ -12,7 +12,7 @@ const result = await database.initialize({
   sql: sqlPath,
   tables: path('sql/tables.sql'),
   views: path('views'),
-  types: path('types.ts'),
+  types: path('db.d.ts'),
   migrations: path('migrations')
 });
 
