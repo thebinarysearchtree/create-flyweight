@@ -12,7 +12,6 @@ if (process.argv.length < 3) {
 
 exec('npm install flyweightjs');
 const root = process.argv[2];
-const ts = process.argv.length > 3;
 
 const copy = async (from, to, options) => {
   if (!to) {
@@ -34,9 +33,7 @@ await copy('sql', options);
 await mkdir(join(root, 'views'));
 await copy('app.db');
 
-const typesFile = ts ? 'types.ts' : 'db.d.ts';
-await copy('db.d.ts', typesFile);
-
+await copy('db.d.ts');
 await copy(`db.js`);
 await copy('migrate.js');
 await copy('makeTypes.js');
