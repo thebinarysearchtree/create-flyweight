@@ -14,7 +14,7 @@ const result = await database.initialize({
   sql: sqlPath,
   tables: path('sql/tables.sql'),
   views: path('views'),
-  types: path('db.d.ts'),
+  types: path('types.ts'),
   migrations: path('migrations')
 });
 

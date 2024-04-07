@@ -34,16 +34,15 @@ await copy('sql', options);
 await mkdir(join(root, 'views'));
 await copy('app.db');
 
-const typesFile = ts ? 'types.ts' : 'db.d.ts';
-await copy('db.d.ts', typesFile);
-
 if (!ts) {
+  await copy('db.d.ts');
   await copy(`db.js`);
   await copy('migrate.js');
   await copy('makeTypes.js');
   await copy('watch.js');
 }
 else {
+  await copy('./ts/types.ts', 'types.ts');
   await copy('./ts/db.ts', 'db.ts');
   await copy('./ts/migrate.ts', 'migrate.ts');
   await copy('./ts/makeTypes.ts', 'makeTypes.ts');

@@ -1,5 +1,5 @@
 import { Database } from 'flyweightjs';
-import { TypedDb } from './types.ts';
+import { TypedDb } from './types';
 
 const path = (subPath: string) => {
   const url = new URL(subPath, import.meta.url);
