@@ -1,10 +1,8 @@
 import { Database } from 'flyweightjs';
 import { TypedDb } from './types';
+import { join } from 'path';
 
-const path = (subPath: string) => {
-  const url = new URL(subPath, import.meta.url);
-  return url.pathname;
-}
+const path = (subPath: string) => join(import.meta.dirname, subPath);
 
 const database = new Database();
 

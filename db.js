@@ -1,9 +1,7 @@
 import { Database } from 'flyweightjs';
+import { join } from 'path';
 
-const path = (subPath) => {
-  const url = new URL(subPath, import.meta.url);
-  return url.pathname;
-}
+const path = (subPath) => join(import.meta.dirname, subPath);
 
 const database = new Database();
 
