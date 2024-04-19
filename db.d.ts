@@ -172,10 +172,23 @@ interface WhereUser {
   name?: string | Array<string> | RegExp;
 }
 
+interface UsersTest {
+  id: number;
+  name: string;
+}
+
+interface UsersQueries {
+  test(): Promise<Array<UsersTest>>;
+}
+
+interface UserQueries {
+  test(): Promise<UsersTest | undefined>;
+}
+
 interface TypedDb {
   [key: string]: any,
-  users: MultipleQueries<User, InsertUser, WhereUser>,
-  user: SingularQueries<User, InsertUser, WhereUser, number>,
+  users: MultipleQueries<User, InsertUser, WhereUser> & UsersQueries,
+  user: SingularQueries<User, InsertUser, WhereUser, number> & UserQueries,
   begin(): Promise<void>,
   commit(): Promise<void>,
   rollback(): Promise<void>,

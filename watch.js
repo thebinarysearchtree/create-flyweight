@@ -3,4 +3,12 @@ import { watch } from 'fs';
 
 process.on('exit', async () => await database.close());
 
-watch(sqlPath, { recursive: true }, async () => await makeTypes());
+console.log('watching for changes');
+watch(sqlPath, { recursive: true }, async () => {
+  try {
+    await makeTypes();
+  }
+  catch (e) {
+    console.log(e.message);
+  }
+});

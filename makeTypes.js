@@ -1,4 +1,12 @@
-import { makeTypes } from './db.js';
+import { makeTypes, database } from './db.js';
 
-await makeTypes();
-console.log('Types updated');
+try {
+  await makeTypes();
+  console.log('Types updated');
+}
+catch (e) {
+  console.log(e.message);
+}
+finally {
+  await database.close();
+}
