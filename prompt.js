@@ -1,5 +1,6 @@
 import readline from 'readline/promises';
 import { stdin as input, stdout as output } from 'process';
+import { readFile, writeFile, rm } from 'fs/promises';
 
 const now = () => {
   const currentDate = new Date();
@@ -13,7 +14,25 @@ const now = () => {
   return `${year}${month}${day}${hours}${minutes}${seconds}`;
 };
 
-const prompt = async (database, createMigration, runMigration, makeTypes) => {
+const createMigration = async (db, name) => {
+  const lastTablesPath = join(db.migrationsPath, 'lastTables.sql');
+  const lastViewsPath = join(db.migrationsPath, 'lastViews.sql');
+  const lastTables = await readFile(lastTablesPath, 'utf8');
+  const lastViews = await readFile(lastViewsPath, 'utf8');
+  const migrationPath = join(db.migrationsPath, `${name}.sql`);
+  const undo = async () => {
+    await rm(migrationPath);
+    await writeFile(lastTablesPath, lastTables);
+    await writeFile(lastViewsPath, lastViews);
+  };
+  const sql = await db.createMigration(name);
+  return {
+    sql,
+    undo
+  }
+};
+
+const prompt = async (db) => {
   let name;
   if (process.argv.length > 2) {
     name = `${now()}_${process.argv[2]}`;
@@ -28,7 +47,7 @@ const prompt = async (database, createMigration, runMigration, makeTypes) => {
   }
   catch (e) {
     console.log('Error creating migration:\n');
-    await database.close();
+    await db.close();
     process.exit();
   }
   if (!migration.sql) {
@@ -45,13 +64,13 @@ const prompt = async (database, createMigration, runMigration, makeTypes) => {
       await migration.undo();
     }
     finally {
-      await database.close();
+      await db.close();
     }
   }
   else {
     try {
-      await runMigration(name);
-      await makeTypes();
+      await db.runMigration(name);
+      await db.makeTypes();
       console.log('Migration ran successfully.');
     }
     catch (e) {
@@ -60,7 +79,7 @@ const prompt = async (database, createMigration, runMigration, makeTypes) => {
       throw e;
     }
     finally {
-      await database.close();
+      await db.close();
     }
   }
 }
