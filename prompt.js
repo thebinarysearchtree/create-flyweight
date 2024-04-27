@@ -1,6 +1,7 @@
 import readline from 'readline/promises';
 import { stdin as input, stdout as output } from 'process';
 import { readFile, writeFile, rm } from 'fs/promises';
+import { join } from 'path';
 
 const now = () => {
   const currentDate = new Date();
@@ -43,7 +44,7 @@ const prompt = async (db) => {
 
   let migration;
   try {
-    migration = await createMigration(name);
+    migration = await createMigration(db, name);
   }
   catch (e) {
     console.log('Error creating migration:\n');

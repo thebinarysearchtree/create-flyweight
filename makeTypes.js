@@ -1,7 +1,7 @@
-import { makeTypes, database } from './db.js';
+import { database } from './db.js';
 
 try {
-  await makeTypes();
+  await database.makeTypes();
   console.log('Types updated');
 }
 catch (e) {
