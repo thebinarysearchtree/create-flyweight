@@ -28,7 +28,13 @@ declare class Database {
 }
 
 declare class SQLiteDatabase extends Database {
+  runMigration(name: string): Promise<void>;
   close(): Promise<void>;
+}
+
+declare class D1Database extends Database {
+  runMigration(sql: string): Promise<void>;
+  batch(handler: (batcher: any) => any[]): Promise<any[]>;
 }
 
 declare class Modifier {
@@ -43,6 +49,9 @@ declare function gt(value: any): Modifier | undefined;
 declare function gte(value: any): Modifier | undefined;
 declare function lt(value: any): Modifier | undefined;
 declare function lte(value: any): Modifier | undefined;
+declare function like(value: any): Modifier | undefined;
+declare function match(value: any): Modifier | undefined;
+declare function glob(value: any): Modifier | undefined;
 
 
 
@@ -149,21 +158,18 @@ interface User {
   id: number;
   name: string;
   age: number;
-  isActive: boolean;
 }
 
 interface InsertUser {
   id?: number;
   name: string;
   age: number;
-  isActive?: boolean;
 }
 
 interface WhereUser {
   id?: number | Array<number>;
   name?: string | Array<string> | RegExp;
   age?: number | Array<number>;
-  isActive?: boolean | Array<boolean>;
 }
 
 interface TypedDb {
@@ -177,7 +183,7 @@ interface TypedDb {
   release(transaction: TypedDb): void
 }
 
-declare const database: Database;
+declare const database: SQLiteDatabase;
 declare const db: TypedDb;
 export {
   database,
