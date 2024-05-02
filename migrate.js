@@ -1,4 +1,4 @@
-import { database } from './db.js';
+import { database, paths } from './db.js';
 import { prompt } from 'flyweight-client';
 
-await prompt(database);
+await prompt(database, paths);

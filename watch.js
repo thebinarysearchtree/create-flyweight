@@ -1,4 +1,4 @@
-import { database } from './db.js';
+import { database, paths } from './db.js';
 import { watch } from 'flyweight-client';
 
-watch(database);
+watch(database, paths);
