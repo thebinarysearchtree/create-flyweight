@@ -11,6 +11,8 @@ if (process.argv.length < 3) {
 }
 
 exec('npm install flyweightjs');
+exec('npm install flyweight-sqlite');
+exec('npm install flyweight-client');
 const root = process.argv[2];
 
 const copy = async (from, to, options) => {

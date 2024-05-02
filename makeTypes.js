@@ -1,12 +1,4 @@
 import { database } from './db.js';
+import { makeTypes } from 'flyweight-client';
 
-try {
-  await database.makeTypes();
-  console.log('Types updated');
-}
-catch (e) {
-  console.log(e.message);
-}
-finally {
-  await database.close();
-}
+await makeTypes(database);
