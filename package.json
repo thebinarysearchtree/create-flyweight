@@ -1,6 +1,6 @@
 {
   "name": "create-flyweight",
-  "version": "1.0.39",
+  "version": "1.0.40",
   "description": "Set up flyweight in a project",
   "main": "index.js",
   "bin": {
@@ -14,7 +14,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.12.4",
-    "flyweight-client": "^1.0.7",
+    "flyweight-client": "^1.0.8",
     "flyweight-sqlite": "^1.0.0",
     "flyweightjs": "^2.0.42"
   }
