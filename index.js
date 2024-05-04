@@ -10,10 +10,22 @@ if (process.argv.length < 3) {
   process.exit();
 }
 
+let d1;
+let root;
+if (process.argv.length > 3) {
+  d1 = true;
+  root = process.argv[3];
+}
+else {
+  d1 = false;
+  root = process.argv[2];
+}
+
 exec('npm install flyweightjs');
-exec('npm install flyweight-sqlite');
+if (!d1) {
+  exec('npm install flyweight-sqlite');
+}
 exec('npm install flyweight-client');
-const root = process.argv[2];
 
 const copy = async (from, to, options) => {
   if (!to) {
@@ -23,7 +35,12 @@ const copy = async (from, to, options) => {
     options = to;
     to = from;
   }
-  const src = join(import.meta.dirname, from);
+  const paths = [import.meta.dirname];
+  if (d1) {
+    paths.push('d1');
+  }
+  paths.push(from);
+  const src = join(...paths);
   const dest = join(root, to);
   await cp(src, dest, options);
 };
@@ -33,13 +50,20 @@ const options = { recursive: true };
 await copy('migrations', options);
 await copy('sql', options);
 await mkdir(join(root, 'views'));
-await copy('app.db');
+if (!d1) {
+  await copy('app.db');
+}
 
 await copy('db.d.ts');
 await copy(`db.js`);
 await copy('migrate.js');
 await copy('makeTypes.js');
 await copy('watch.js');
+
+if (d1) {
+  await copy('files.js');
+  await copy('paths.js');
+}
 
 const file = await readFile('package.json', 'utf8');
 const config = JSON.parse(file);

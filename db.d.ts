@@ -44,8 +44,6 @@ declare function gte(value: any): Modifier | undefined;
 declare function lt(value: any): Modifier | undefined;
 declare function lte(value: any): Modifier | undefined;
 
-
-
 interface Keywords<T> {
   select: T;
   orderBy?: Array<string> | string;
