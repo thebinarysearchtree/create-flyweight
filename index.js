@@ -2,6 +2,7 @@
 import { execSync } from 'child_process';
 import { cp, readFile, writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
+import toml from 'toml';
 
 const exec = (command) => execSync(command, { stdio: 'inherit' });
 
@@ -63,6 +64,24 @@ await copy('watch.js');
 if (d1) {
   await copy('files.js');
   await copy('paths.js');
+
+  const file = await readFile('wrangler.toml', 'utf8');
+  const parsed = toml.parse(file);
+  const database = parsed
+    .d1_databases
+    .filter(d => d.migrations_dir !== undefined)
+    .at(0);
+  try {
+    if (!database) {
+      await mkdir('migrations');
+    }
+    else {
+      await mkdir(database.migrations_dir);
+    }
+  }
+  catch {
+    console.log(`Migrations folder already exists so it wasn't created.`);
+  }
 }
 
 const file = await readFile('package.json', 'utf8');
