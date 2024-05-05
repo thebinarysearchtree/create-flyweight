@@ -210,7 +210,7 @@ interface TypedDb {
   [key: string]: any,
   users: MultipleQueries<User, InsertUser, WhereUser> & UsersQueries,
   user: SingularQueries<User, InsertUser, WhereUser, number> & UserQueries,
-  batch:<T> (batcher: (bx: TypedDb) => T) => Promise<Unwrap<T>>
+  batch:<T extends any[]> (batcher: (bx: TypedDb) => T) => Promise<Unwrap<T>>
 }
 
 export default D1Database;

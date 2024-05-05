@@ -7,7 +7,8 @@ const paths = {
   tables: path('sql/tables.sql'),
   views: path('views'),
   types: path('db.d.ts'),
-  migrations: path('migrations')
+  migrations: path('migrations'),
+  files: path('files.js')
 };
 
 export default paths;
