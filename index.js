@@ -58,6 +58,7 @@ if (!d1) {
 await copy('db.d.ts');
 await copy(`db.js`);
 await copy('migrate.js');
+await copy('reset.js');
 await copy('makeTypes.js');
 await copy('watch.js');
 
@@ -89,5 +90,6 @@ const config = JSON.parse(file);
 config.type = 'module';
 config.scripts.types = `node ${join(root, 'makeTypes.js')}`;
 config.scripts.migrate = `node ${join(root, 'migrate.js')}`;
+config.scripts.reset = `node ${join(root, 'reset.js')}`;
 config.scripts.watch = `node ${join(root, 'watch.js')}`;
 await writeFile('package.json', JSON.stringify(config, null, 2));

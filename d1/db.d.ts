@@ -37,6 +37,7 @@ interface Paths {
   types: string;
   migrations: string;
   wrangler?: string;
+  files?: string;
 }
 
 declare class Database {
@@ -45,7 +46,7 @@ declare class Database {
   makeTypes(fileSystem: FileSystem, paths: Paths): Promise<void>;
   getClient(): TypedDb; 
   getTables(): Promise<string>;
-  createMigration(fileSystem: FileSystem, paths: Paths, name: string): Promise<string>;
+  createMigration(fileSystem: FileSystem, paths: Paths, name: string, reset?: boolean): Promise<string>;
   begin(): Promise<void>;
   commit(): Promise<void>;
   rollback(): Promise<void>;
@@ -200,16 +201,10 @@ interface WhereUser {
   name?: string | Array<string> | RegExp;
 }
 
-interface UsersQueries {
-}
-
-interface UserQueries {
-}
-
 interface TypedDb {
   [key: string]: any,
-  users: MultipleQueries<User, InsertUser, WhereUser> & UsersQueries,
-  user: SingularQueries<User, InsertUser, WhereUser, number> & UserQueries,
+  users: MultipleQueries<User, InsertUser, WhereUser>,
+  user: SingularQueries<User, InsertUser, WhereUser, number>,
   batch:<T extends any[]> (batcher: (bx: TypedDb) => T) => Promise<Unwrap<T>>
 }
 
