@@ -1,3 +1,8 @@
 import { D1Database } from 'flyweightjs';
 
-export default D1Database;
+const create = (options) => {
+  const database = new D1Database(options);
+  return database.getClient();
+}
+
+export default create;

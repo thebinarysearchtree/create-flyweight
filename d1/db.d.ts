@@ -208,4 +208,6 @@ interface TypedDb {
   batch:<T extends any[]> (batcher: (bx: TypedDb) => T) => Promise<Unwrap<T>>
 }
 
-export default D1Database;
+declare function makeClient(options: D1Config): TypedDb;
+
+export default makeClient;
