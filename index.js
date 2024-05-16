@@ -65,6 +65,7 @@ await copy('watch.js');
 if (d1) {
   await copy('files.js');
   await copy('paths.js');
+  await mkdir(join(root, 'migrations'));
 
   const file = await readFile('wrangler.toml', 'utf8');
   const parsed = toml.parse(file);
