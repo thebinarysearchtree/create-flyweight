@@ -48,11 +48,11 @@ const copy = async (from, to, options) => {
 
 const options = { recursive: true };
 
-await copy('migrations', options);
 await copy('sql', options);
 await mkdir(join(root, 'views'));
 if (!d1) {
   await copy('app.db');
+  await copy('migrations', options);
 }
 
 await copy('db.d.ts');
