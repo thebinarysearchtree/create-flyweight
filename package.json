@@ -1,6 +1,6 @@
 {
   "name": "create-flyweight",
-  "version": "1.0.48",
+  "version": "1.0.49",
   "description": "Set up flyweight in a project",
   "main": "index.js",
   "bin": {

@@ -86,9 +86,22 @@ if (d1) {
   }
 }
 
-const file = await readFile('package.json', 'utf8');
-const config = JSON.parse(file);
+let config;
+const setConfig = async () => {
+  const file = await readFile('package.json', 'utf8');
+  config = JSON.parse(file);
+}
+try {
+  await setConfig();
+}
+catch {
+  exec('npm init -y');
+  await setConfig();
+}
 config.type = 'module';
+if (!config.scripts) {
+  config.scripts = {};
+}
 config.scripts.types = `node ${join(root, 'makeTypes.js')}`;
 config.scripts.migrate = `node ${join(root, 'migrate.js')}`;
 config.scripts.reset = `node ${join(root, 'reset.js')}`;
