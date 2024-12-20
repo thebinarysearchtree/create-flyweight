@@ -8,4 +8,4 @@ const database = new D1Database({
   files
 });
 
-await prompt(database, paths);
+await prompt(database, paths, false, 'd1');

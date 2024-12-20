@@ -11,20 +11,23 @@ if (process.argv.length < 3) {
   process.exit();
 }
 
-let d1;
+let dbType = 'sqlite';
 let root;
 if (process.argv.length > 3) {
-  d1 = true;
+  dbType = process.argv[2];
   root = process.argv[3];
 }
 else {
-  d1 = false;
   root = process.argv[2];
 }
 
 exec('npm install flyweightjs');
-if (!d1) {
+if (dbType === 'sqlite') {
   exec('npm install flyweight-sqlite');
+}
+else if (dbType === 'turso') {
+  exec('npm install flyweight-turso');
+  exec('npm install dotenv');
 }
 exec('npm install flyweight-client');
 
@@ -37,8 +40,8 @@ const copy = async (from, to, options) => {
     to = from;
   }
   const paths = [import.meta.dirname];
-  if (d1) {
-    paths.push('d1');
+  if (dbType !== 'sqlite') {
+    paths.push(dbType);
   }
   paths.push(from);
   const src = join(...paths);
@@ -50,9 +53,14 @@ const options = { recursive: true };
 
 await copy('sql', options);
 await mkdir(join(root, 'views'));
-if (!d1) {
+if (dbType === 'sqlite') {
   await copy('app.db');
+}
+if (dbType === 'sqlite') {
   await copy('migrations', options);
+}
+else if (dbType === 'turso') {
+  await mkdir(join(root, 'migrations'));
 }
 
 await copy('db.d.ts');
@@ -62,7 +70,7 @@ await copy('reset.js');
 await copy('makeTypes.js');
 await copy('watch.js');
 
-if (d1) {
+if (dbType === 'd1') {
   await copy('files.js');
   await copy('paths.js');
   await mkdir(join(root, 'migrations'));

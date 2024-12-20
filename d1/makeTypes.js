@@ -8,4 +8,4 @@ const database = new D1Database({
   files
 });
 
-await makeTypes(database, paths);
+await makeTypes(database, paths, 'd1');
