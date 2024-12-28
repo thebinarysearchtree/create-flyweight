@@ -1,4 +1,7 @@
-import { database, paths } from './db.js';
+import createClient from './db.js';
 import { makeTypes } from 'flyweight-client';
+import paths from './paths.js';
 
-await makeTypes(database, paths, 'turso');
+const db = createClient({ internal: true });
+
+await makeTypes(db, paths, 'turso');

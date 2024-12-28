@@ -1,4 +1,7 @@
-import { database, paths } from './db.js';
+import createClient from './db.js';
 import { prompt } from 'flyweight-client';
+import paths from './paths.js';
 
-await prompt(database, paths, true, 'turso');
+const db = createClient({ internal: true });
+
+await prompt(db, paths, true, 'turso');

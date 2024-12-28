@@ -8,31 +8,12 @@ interface DatabaseConfig {
 
 interface TursoConfig extends DatabaseConfig {
   db: any;
-  sql: string | URL;
-  tables: string | URL;
-  views: string | URL;
-  types: string | URL;
-  migrations: string | URL;
-  adaptor: any;
+  files: any;
 }
 
-interface FileSystem {
-  readFile: (path: string, encoding: string) => Promise<string>;
-  writeFile: (path: string, content: string) => Promise<void>;
-  readdir: (path: string) => Promise<string[]>;
-  join: (...paths: string[]) => string;
-  readSql: (path: string) => Promise<string>;
-}
-
-interface Paths {
-  tables: string;
-  views: string;
-  sql: string;
-  types: string;
-  migrations: string;
-  wrangler?: string;
-  files?: string;
-}
+type Unwrap<T extends any[]> = {
+  [K in keyof T]: T[K] extends Promise<infer U> ? U : T[K];
+};
 
 declare class Database {
   constructor(options: DatabaseConfig);
@@ -129,12 +110,25 @@ interface TypedDb {
   [key: string]: any,
   users: MultipleQueries<User, InsertUser, WhereUser>,
   user: SingularQueries<User, InsertUser, WhereUser, number>,
+  begin(): Promise<void>,
+  commit(): Promise<void>,
+  rollback(): Promise<void>,
+  getTransaction(type: ('read' | 'write')): Promise<TypedDb>,
   batch:<T extends any[]> (batcher: (bx: TypedDb) => T) => Promise<Unwrap<T>>
 }
 
-declare const database: TursoDatabase;
-declare const db: TypedDb;
-export {
-  database,
-  db
+interface Config {
+    url: string;
+    authToken?: string;
+    encryptionKey?: string;
+    syncUrl?: string;
+    syncInterval?: number;
+    tls?: boolean;
+    intMode?: IntMode;
+    fetch?: Function;
+    concurrency?: number | undefined;
 }
+
+declare function makeClient(options: Config): TypedDb;
+
+export default makeClient;

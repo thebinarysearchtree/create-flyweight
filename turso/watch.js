@@ -1,4 +1,7 @@
-import { database, paths } from './db.js';
+import createClient from './db.js';
 import { watch } from 'flyweight-client';
+import paths from './paths.js';
 
-watch(database, paths, 'turso');
+const db = createClient({ internal: true });
+
+watch(db, paths, 'turso');

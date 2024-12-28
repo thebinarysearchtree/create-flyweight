@@ -4,7 +4,6 @@ interface DatabaseConfig {
 
 interface D1Config extends DatabaseConfig {
   db: any;
-  files: any;
 }
 
 type Unwrap<T extends any[]> = {

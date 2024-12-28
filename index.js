@@ -23,11 +23,10 @@ else {
 
 exec('npm install flyweightjs');
 if (dbType === 'sqlite') {
-  exec('npm install flyweight-sqlite');
+  exec('npm install sqlite3');
 }
 else if (dbType === 'turso') {
-  exec('npm install flyweight-turso');
-  exec('npm install dotenv');
+  exec('npm install @libsql/client');
 }
 exec('npm install flyweight-client');
 
@@ -59,7 +58,9 @@ if (dbType === 'sqlite') {
 if (dbType === 'sqlite') {
   await copy('migrations', options);
 }
-else if (dbType === 'turso') {
+else if (dbType !== 'sqlite') {
+  await copy('files.js');
+  await copy('paths.js');
   await mkdir(join(root, 'migrations'));
 }
 
@@ -71,10 +72,6 @@ await copy('makeTypes.js');
 await copy('watch.js');
 
 if (dbType === 'd1') {
-  await copy('files.js');
-  await copy('paths.js');
-  await mkdir(join(root, 'migrations'));
-
   const file = await readFile('wrangler.toml', 'utf8');
   const parsed = toml.parse(file);
   const database = parsed
