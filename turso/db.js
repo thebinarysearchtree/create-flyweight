@@ -2,7 +2,7 @@ import { TursoDatabase } from 'flyweightjs';
 import { createClient } from '@libsql/client';
 import files from './files.js';
 
-const create = (options) => {
+const create = (options, internal) => {
   const client = createClient({
     url: 'test',
     authToken: 'test',
@@ -12,7 +12,7 @@ const create = (options) => {
     db: client,
     files
   });
-  if (options && options.internal) {
+  if (internal) {
     return database;
   }
   return database.getClient();

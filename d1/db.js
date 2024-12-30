@@ -1,9 +1,9 @@
 import { D1Database } from 'flyweightjs';
 import files from './files.js';
 
-const create = (options) => {
+const create = (db) => {
   const database = new D1Database({
-    ...options,
+    db,
     files 
   });
   return database.getClient();

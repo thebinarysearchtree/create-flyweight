@@ -129,6 +129,6 @@ interface Config {
     concurrency?: number | undefined;
 }
 
-declare function makeClient(options: Config): TypedDb;
+declare function makeClient(options: Config, internal?: boolean): TypedDb;
 
 export default makeClient;
