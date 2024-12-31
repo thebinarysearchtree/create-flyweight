@@ -64,7 +64,6 @@ else if (dbType !== 'sqlite') {
   await mkdir(join(root, 'migrations'));
 }
 
-await copy('db.d.ts');
 await copy(`db.js`);
 await copy('migrate.js');
 await copy('reset.js');
