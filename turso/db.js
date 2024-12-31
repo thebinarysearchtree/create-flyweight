@@ -3,22 +3,19 @@ import { createClient } from '@libsql/client';
 import files from './files.js';
 
 const create = (options, internal) => {
-  if (internal) {
-    const database = new TursoDatabase({
-      db: null,
-      files
-    });
-    return database;
-  }
-  const client = createClient({
-    url: 'test',
-    authToken: 'test',
+  const config = {
+    url: null,
+    authToken: null,
     ...options
-  });
+  };
+  const db = config.url ? createClient(config) : null;
   const database = new TursoDatabase({
-    db: client,
+    db,
     files
   });
+  if (internal) {
+    return database;
+  }
   return database.getClient();
 }
 
