@@ -113,8 +113,9 @@ interface TypedDb {
   begin(): Promise<void>,
   commit(): Promise<void>,
   rollback(): Promise<void>,
-  getTransaction(type: ('read' | 'write')): Promise<TypedDb>,
-  batch:<T extends any[]> (batcher: (bx: TypedDb) => T) => Promise<Unwrap<T>>
+  getTransaction(type: ('read' | 'write' | 'deferred')): Promise<TypedDb>,
+  batch:<T extends any[]> (batcher: (bx: TypedDb) => T) => Promise<Unwrap<T>>,
+  sync(): Promise<void>
 }
 
 interface Config {
@@ -124,7 +125,7 @@ interface Config {
     syncUrl?: string;
     syncInterval?: number;
     tls?: boolean;
-    intMode?: IntMode;
+    intMode?: 'number' | 'bigint' | 'string';
     fetch?: Function;
     concurrency?: number | undefined;
 }
