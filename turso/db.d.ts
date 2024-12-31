@@ -1,39 +1,6 @@
-interface QueryOptions {
-  parse: boolean;
-}
-
-interface DatabaseConfig {
-  debug?: boolean;
-}
-
-interface TursoConfig extends DatabaseConfig {
-  db: any;
-  files: any;
-}
-
 type Unwrap<T extends any[]> = {
   [K in keyof T]: T[K] extends Promise<infer U> ? U : T[K];
 };
-
-declare class Database {
-  constructor(options: DatabaseConfig);
-  runMigration(sql: string): Promise<void>;
-  makeTypes(fileSystem: FileSystem, paths: Paths): Promise<void>;
-  getClient(): TypedDb; 
-  getTables(): Promise<string>;
-  createMigration(fileSystem: FileSystem, paths: Paths, name: string, reset?: boolean): Promise<string>;
-  begin(): Promise<void>;
-  commit(): Promise<void>;
-  rollback(): Promise<void>;
-  run(args: { query: any, params?: any }): Promise<number>;
-  all<T>(args: { query: any, params?: any, options?: QueryOptions }): Promise<Array<T>>;
-  exec(query: string): Promise<void>;
-}
-
-declare class TursoDatabase extends Database {
-  constructor(options: TursoConfig);
-  batch(handler: (batcher: any) => any[]): Promise<any[]>;
-}
 
 interface Keywords<T> {
   select: T;
