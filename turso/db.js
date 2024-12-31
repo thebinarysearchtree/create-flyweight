@@ -2,15 +2,20 @@ import { TursoDatabase } from 'flyweightjs';
 import { createClient } from '@libsql/client';
 import files from './files.js';
 
-const create = (options, internal) => {
-  const config = {
+const create = (options, internal, needsConnection) => {
+  if (internal && !needsConnection) {
+    return new TursoDatabase({
+      db: null,
+      files
+    });
+  }
+  const client = createClient({
     url: null,
     authToken: null,
     ...options
-  };
-  const db = config.url ? createClient(config) : null;
+  });
   const database = new TursoDatabase({
-    db,
+    db: client,
     files
   });
   if (internal) {
