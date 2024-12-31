@@ -111,3 +111,4 @@ config.scripts.migrate = `node ${join(root, 'migrate.js')}`;
 config.scripts.reset = `node ${join(root, 'reset.js')}`;
 config.scripts.watch = `node ${join(root, 'watch.js')}`;
 await writeFile('package.json', JSON.stringify(config, null, 2));
+exec('npm run types');
