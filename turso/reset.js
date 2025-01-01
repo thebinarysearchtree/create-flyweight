@@ -1,7 +1,10 @@
 import createClient from './db.js';
-import { prompt } from 'flyweight-client';
+import { prompt, makeTypes } from 'flyweight-client';
 import paths from './paths.js';
 
 const db = createClient(null, true);
 
-await prompt(db, paths, true, 'turso');
+const result = await prompt(db, paths, true, 'turso');
+if (result) {
+  await makeTypes(db, paths);
+}

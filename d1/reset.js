@@ -1,5 +1,5 @@
 import { D1Database } from 'flyweightjs';
-import { prompt } from 'flyweight-client';
+import { prompt, makeTypes } from 'flyweight-client';
 import paths from './paths.js';
 import files from './files.js';
 
@@ -8,4 +8,7 @@ const database = new D1Database({
   files
 });
 
-await prompt(database, paths, true, 'd1');
+const result = await prompt(database, paths, true, 'd1');
+if (result) {
+  await makeTypes(database, paths);
+}
