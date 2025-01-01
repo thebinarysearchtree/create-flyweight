@@ -10,5 +10,5 @@ const database = new D1Database({
 
 const result = await prompt(database, paths, true, 'd1');
 if (result) {
-  await makeTypes(database, paths);
+  await makeTypes(database, paths, 'd1');
 }

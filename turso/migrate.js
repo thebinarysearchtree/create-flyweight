@@ -7,5 +7,5 @@ const db = createClient(null, true, true);
 const result = await prompt(db, paths, false, 'turso');
 if (result) {
   const db = createClient(null, true);
-  await makeTypes(db, paths);
+  await makeTypes(db, paths, 'turso');
 }
