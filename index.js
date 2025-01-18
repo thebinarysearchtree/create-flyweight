@@ -23,7 +23,7 @@ else {
 
 exec('npm install flyweightjs');
 if (dbType === 'sqlite') {
-  exec('npm install sqlite3');
+  exec('npm install better-sqlite3');
 }
 else if (dbType === 'turso') {
   exec('npm install @libsql/client');
