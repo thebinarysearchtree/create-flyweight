@@ -1,6 +1,6 @@
 import { SQLiteDatabase } from 'flyweightjs';
 import { join } from 'path';
-import sqlite3 from 'sqlite3';
+import sqlite3 from 'better-sqlite3';
 import { readFile, writeFile, readdir } from 'fs/promises';
 
 const readSql = async (path) => {
