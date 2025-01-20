@@ -8,4 +8,4 @@ const database = new D1Database({
   files
 });
 
-watch(database, paths, 'd1');
+watch(database, paths);

@@ -8,7 +8,7 @@ const database = new D1Database({
   files
 });
 
-const result = await prompt(database, paths, true, 'd1');
+const result = await prompt(database, paths, true);
 if (result) {
-  await makeTypes(database, paths, 'd1');
+  await makeTypes(database, paths);
 }

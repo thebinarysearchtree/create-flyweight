@@ -4,4 +4,4 @@ import paths from './paths.js';
 
 const db = createClient(null, true);
 
-watch(db, paths, 'turso');
+watch(db, paths);

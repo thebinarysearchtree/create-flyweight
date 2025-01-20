@@ -4,7 +4,7 @@ import paths from './paths.js';
 
 const db = createClient(null, true);
 
-const result = await prompt(db, paths, true, 'turso');
+const result = await prompt(db, paths, true);
 if (result) {
-  await makeTypes(db, paths, 'turso');
+  await makeTypes(db, paths);
 }

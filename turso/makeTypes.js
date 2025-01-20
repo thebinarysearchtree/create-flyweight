@@ -4,4 +4,4 @@ import paths from './paths.js';
 
 const db = createClient(null, true);
 
-await makeTypes(db, paths, 'turso');
+await makeTypes(db, paths);
