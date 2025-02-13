@@ -28,6 +28,10 @@ if (dbType === 'sqlite') {
 else if (dbType === 'turso') {
   exec('npm install @libsql/client');
 }
+else if (dbType === 'd1') {
+  exec('npm install -D toml');
+  exec('npm install -D miniflare');
+}
 exec('npm install flyweight-client');
 
 const copy = async (from, to, options) => {
@@ -68,9 +72,11 @@ await copy(`db.js`);
 await copy('migrate.js');
 await copy('reset.js');
 await copy('makeTypes.js');
+await copy('makeJson.js');
 await copy('watch.js');
 
 if (dbType === 'd1') {
+  await copy('types.js');
   const file = await readFile('wrangler.toml', 'utf8');
   const parsed = toml.parse(file);
   const database = parsed
@@ -107,6 +113,7 @@ if (!config.scripts) {
   config.scripts = {};
 }
 config.scripts.types = `node ${join(root, 'makeTypes.js')}`;
+config.scripts.sample = `node ${join(root, 'makeJson.js')}`;
 config.scripts.migrate = `node ${join(root, 'migrate.js')}`;
 config.scripts.reset = `node ${join(root, 'reset.js')}`;
 config.scripts.watch = `node ${join(root, 'watch.js')}`;

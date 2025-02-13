@@ -1,6 +1,6 @@
 {
   "name": "create-flyweight",
-  "version": "1.0.67",
+  "version": "1.0.68",
   "description": "Set up flyweight in a project",
   "main": "index.js",
   "bin": {
@@ -17,7 +17,8 @@
     "@types/node": "^20.12.4",
     "better-sqlite3": "^11.8.0",
     "flyweight-client": "file:../flyweight-client",
-    "flyweightjs": "file:../flyweight"
+    "flyweightjs": "file:../flyweight",
+    "miniflare": "^3.20250129.0"
   },
   "dependencies": {
     "toml": "^3.0.0"

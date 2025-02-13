@@ -1,3 +1,3 @@
 import types from './types.js';
 
-await types();
+await types(true);
