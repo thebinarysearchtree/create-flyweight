@@ -1,3 +1,6 @@
-import types from './types.js';
+import { makeTypes } from 'flyweight-client';
+import paths from './paths.js';
+import create from './db.js';
 
-await types();
+const database = create({}, true);
+await makeTypes(database, paths);

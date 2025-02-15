@@ -16,11 +16,9 @@
     "@libsql/client": "^0.14.0",
     "@types/node": "^20.12.4",
     "better-sqlite3": "^11.8.0",
+    "cloudflare": "^4.1.0",
+    "dotenv": "^16.4.7",
     "flyweight-client": "file:../flyweight-client",
-    "flyweightjs": "file:../flyweight",
-    "miniflare": "^3.20250129.0"
-  },
-  "dependencies": {
-    "toml": "^3.0.0"
+    "flyweightjs": "file:../flyweight"
   }
 }
