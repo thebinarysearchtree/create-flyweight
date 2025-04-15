@@ -3,4 +3,7 @@ import paths from './paths.js';
 import create from './db.js';
 
 const database = create({}, true);
-await makeTypes(database, paths);
+await makeTypes({
+  db: database,
+  paths
+});

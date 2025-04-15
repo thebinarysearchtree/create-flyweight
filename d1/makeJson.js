@@ -12,4 +12,8 @@ const getSample = async (table, column) => {
 }
 
 const database = create({}, true, getSample);
-await makeTypes(database, paths, true);
+await makeTypes({
+  db: database,
+  paths,
+  sample: true
+});

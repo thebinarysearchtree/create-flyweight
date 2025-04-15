@@ -4,4 +4,7 @@ import paths from './paths.js';
 
 const db = createClient(null, true);
 
-await makeTypes(db, paths);
+await makeTypes({
+  db,
+  paths
+});

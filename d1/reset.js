@@ -6,5 +6,8 @@ const database = create({}, true);
 
 const result = await prompt(database, paths, true);
 if (result) {
-  await makeTypes(database, paths);
+  await makeTypes({
+    db: database,
+    paths
+  });
 }

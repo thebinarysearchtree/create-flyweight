@@ -1,4 +1,10 @@
 import { database, paths } from './db.js';
-import { prompt } from 'flyweight-client';
+import { prompt, makeTypes } from 'flyweight-client';
 
-await prompt(database, paths, true);
+const result = await prompt(database, paths, true);
+if (result) {
+  await makeTypes({
+    db: database,
+    paths
+  });
+}
