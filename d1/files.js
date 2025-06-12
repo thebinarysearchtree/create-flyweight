@@ -4,5 +4,6 @@ const files = {
     name text not null
 );`,
     views: ``,
+    computed: ``,
     queries: {}
 }; export default files;

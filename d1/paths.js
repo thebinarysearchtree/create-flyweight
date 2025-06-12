@@ -11,7 +11,8 @@ const paths = {
   json: path('types.json'),
   migrations: path('migrations'),
   wranglerMigrations: migrationsPath,
-  files: path('files.js')
+  files: path('files.js'),
+  computed: path('computed.json')
 };
 
 export default paths;

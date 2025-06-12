@@ -42,7 +42,8 @@ const paths = {
   views: path('views'),
   types: path('db.d.ts'),
   json: path('types.json'),
-  migrations: path('migrations')
+  migrations: path('migrations'),
+  computed: path('computed.json')
 };
 
 const database = new SQLiteDatabase({

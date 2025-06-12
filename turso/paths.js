@@ -9,7 +9,8 @@ const paths = {
   types: path('db.d.ts'),
   json: path('types.json'),
   migrations: path('migrations'),
-  files: path('files.js')
+  files: path('files.js'),
+  computed: path('computed.json')
 };
 
 export default paths;
