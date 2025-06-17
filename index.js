@@ -27,9 +27,6 @@ if (dbType === 'sqlite') {
 else if (dbType === 'turso') {
   exec('npm install @libsql/client');
 }
-else if (dbType === 'd1') {
-  exec('npm install -D better-sqlite3');
-}
 exec('npm install flyweight-client');
 
 const copy = async (from, to, options) => {
@@ -41,7 +38,7 @@ const copy = async (from, to, options) => {
     to = from;
   }
   const paths = [import.meta.dirname];
-  if (dbType !== 'sqlite') {
+  if (dbType !== 'sqlite' && ['config.js', 'system.js'].includes(from)) {
     paths.push(dbType);
   }
   paths.push(from);
@@ -53,35 +50,17 @@ const copy = async (from, to, options) => {
 const options = { recursive: true };
 
 await copy('sql', options);
+await copy('config.js');
 await mkdir(join(root, 'views'));
-if (dbType === 'sqlite') {
-  await copy('app.db');
-}
-if (dbType === 'sqlite') {
-  await copy('migrations', options);
-}
-else if (dbType !== 'sqlite') {
-  await copy('files.js');
-  await copy('paths.js');
-  await mkdir(join(root, 'migrations'));
-}
-
+await copy('app.db');
+await copy('migrations', options);
+await copy(`internal.js`);
 await copy(`db.js`);
 await copy('migrate.js');
 await copy('reset.js');
 await copy('makeTypes.js');
 await copy('makeJson.js');
 await copy('watch.js');
-
-if (dbType === 'd1') {
-  await copy('config.js');
-  try {
-    await mkdir('migrations');
-  }
-  catch {
-    console.log(`Migrations folder already exists so it wasn't created.`);
-  }
-}
 
 let config;
 const setConfig = async () => {

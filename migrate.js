@@ -1,5 +1,6 @@
-import { database, paths } from './db.js';
+import { database } from './db.js';
 import { prompt, makeTypes } from 'flyweight-client';
+import { paths } from './config.js';
 
 const result = await prompt(database, paths, false);
 if (result) {
