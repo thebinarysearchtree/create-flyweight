@@ -28,6 +28,7 @@ else if (dbType === 'turso') {
   exec('npm install @libsql/client');
 }
 exec('npm install flyweight-client');
+exec('npm install --save-dev @types/node');
 
 const copy = async (from, to, options) => {
   if (!to) {
@@ -54,7 +55,7 @@ await copy('config.js');
 await mkdir(join(root, 'views'));
 await copy('app.db');
 await copy('migrations', options);
-await copy(`internal.js`);
+await copy(`system.js`);
 await copy(`db.js`);
 await copy('migrate.js');
 await copy('reset.js');
