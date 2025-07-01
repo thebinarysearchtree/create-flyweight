@@ -9,8 +9,7 @@ const paths = {
   views: path('views'),
   types: path('system.d.ts'),
   json: path('types.json'),
-  migrations: path('migrations'),
-  computed: path('computed.json')
+  migrations: path('migrations')
 };
 
 const config = {};
