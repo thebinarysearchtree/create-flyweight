@@ -40,6 +40,7 @@ const database = new TursoDatabase({
   paths,
   adaptor
 });
+await database.initialize();
 const db = database.getClient();
 
 export {

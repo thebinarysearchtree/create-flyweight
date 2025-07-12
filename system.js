@@ -40,6 +40,7 @@ const database = new SQLiteDatabase({
   paths,
   config
 });
+await database.initialize();
 
 const db = database.getClient();
 
